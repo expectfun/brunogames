@@ -496,6 +496,13 @@
             }
         });
 
+        // Allow parent page (e.g. embed via iframe) to trigger jump / tap via postMessage
+        window.addEventListener('message', function (e) {
+            if (e.data && e.data.type === 'arcadeJump') {
+                handleTap();
+            }
+        });
+
         // Spawn obstacles - only chairs and tables
         function spawnObstacle() {
             // Alternate between chair and table with some randomness
@@ -1147,6 +1154,8 @@
                 document.getElementById('highScoreHUD').textContent = '';
             }
         }
+
+        
 
         // Main render
         function render() {
